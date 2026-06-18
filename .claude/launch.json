@@ -1,0 +1,1 @@
+{"version":"0.0.1","configurations":[{"name":"gq-cutz-barber-boutique-dev","runtimeExecutable":"npm","runtimeArgs":["run","dev","--","-H","0.0.0.0","-p","3073"],"port":3073}]}
