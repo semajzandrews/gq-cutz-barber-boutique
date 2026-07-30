@@ -36,14 +36,13 @@ export default function Nav() {
             ))}
           </nav>
           <div className="nav-right">
-            <a
+            <button
+              type="button"
               className="nav-cta"
-              href={BIZ.book}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={() => window.dispatchEvent(new CustomEvent("gqcutz:book"))}
             >
-              Book on Booksy
-            </a>
+              Book a chair
+            </button>
             <button
               className="hamburger"
               aria-label="Open menu"
@@ -72,14 +71,15 @@ export default function Nav() {
             {l.label}
           </a>
         ))}
-        <a
-          href={BIZ.book}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => setOpen(false)}
+        <button
+          type="button"
+          onClick={() => {
+            setOpen(false);
+            window.dispatchEvent(new CustomEvent("gqcutz:book"));
+          }}
         >
           <span className="idx">→</span>Book
-        </a>
+        </button>
       </div>
     </>
   );

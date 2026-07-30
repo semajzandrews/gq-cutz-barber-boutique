@@ -4,6 +4,7 @@ import Nav from "./_components/Nav";
 import CoverHero from "./_components/CoverHero";
 import { Services, Proof, Visit, Footer } from "./_components/LowerSections";
 import { BIZ, RITUALS, LOOKBOOK } from "./_components/data";
+import BookingTakeover from "./_components/BookingTakeover";
 
 export default function Page() {
   return (
@@ -117,6 +118,7 @@ export default function Page() {
       >
         Book on Booksy · {BIZ.rating} ★
       </a>
+      <BookingTakeover />
     </>
   );
 }

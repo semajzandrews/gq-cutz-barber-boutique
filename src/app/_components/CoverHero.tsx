@@ -116,14 +116,13 @@ export default function CoverHero() {
             className="cover-actions cprint"
             style={{ transitionDelay: "0.56s" }}
           >
-            <a
+            <button
+              type="button"
               className="btn btn-solid"
-              href={BIZ.book}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={() => window.dispatchEvent(new CustomEvent("gqcutz:book"))}
             >
               Reserve your chair
-            </a>
+            </button>
             <a className="btn btn-ghost" href="#ritual">
               See the ritual
             </a>
