@@ -96,7 +96,10 @@ export function Visit() {
               <div className="vrow">
                 <div className="k">Call or text</div>
                 <div className="v">
-                  <a href={`tel:${BIZ.phoneTel}`}>{BIZ.phoneDisplay}</a>
+                  <a href={BIZ.phoneTel}>{BIZ.phoneDisplay}</a>
+                  <br />
+                  Send a picture of the style and we will tell you if it works
+                  on your hair before you sit down.
                 </div>
               </div>
               <div className="vrow">
@@ -112,7 +115,7 @@ export function Visit() {
                 </div>
               </div>
             </dl>
-            <div style={{ marginTop: 30 }}>
+            <div style={{ marginTop: 30, display: "flex", flexWrap: "wrap", gap: 12 }}>
               <a
                 className="btn btn-solid"
                 href={BIZ.book}
@@ -120,6 +123,9 @@ export function Visit() {
                 rel="noopener noreferrer"
               >
                 Book your appointment
+              </a>
+              <a className="btn btn-ghost" href={BIZ.smsHref}>
+                Text a photo
               </a>
             </div>
           </div>

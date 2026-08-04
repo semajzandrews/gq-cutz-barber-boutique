@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { BIZ, NAV_LINKS } from "./data";
+import CallOrText from "./CallOrText";
+import { telHref, smsHref } from "@/lib/phone";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -36,6 +38,7 @@ export default function Nav() {
             ))}
           </nav>
           <div className="nav-right">
+            <CallOrText />
             <button
               type="button"
               className="nav-cta"
@@ -80,6 +83,12 @@ export default function Nav() {
         >
           <span className="idx">→</span>Book
         </button>
+        <a href={telHref(BIZ.phoneDigits)} onClick={() => setOpen(false)}>
+          <span className="idx">☏</span>Call
+        </a>
+        <a href={smsHref(BIZ.phoneDigits, BIZ.smsBody)} onClick={() => setOpen(false)}>
+          <span className="idx">✉</span>Text a photo
+        </a>
       </div>
     </>
   );

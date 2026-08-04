@@ -21,23 +21,14 @@ import {
   SVCS, RITUAL_ADDONS, money, upcomingDays, slotsFor, prettyDate,
   DEPOSIT_ENABLED, DEPOSIT_AMOUNT, type Svc,
 } from "./booking";
+import { formatAsYouType, isCompletePhone } from "@/lib/phone";
 
 
 /**
- * US phone formatting + validation, shared behaviour across every build.
- * Progressively formats to (xxx) xxx-xxxx as the customer types, hard-caps at
- * 10 digits so nothing longer can be entered, and exposes a completeness check
- * the submit gate uses. Non-digits are dropped rather than rejected, so paste
- * of "973-555-0123" or "+1 973 555 0123" still lands correctly.
+ * Phone handling is NOT duplicated here. The mask, the display format and the
+ * tel:/sms: hrefs all come from @/lib/phone so the number a client reads in the
+ * nav is exactly the shape he types back into this form.
  */
-export function formatPhone(input: string): string {
-  const d = input.replace(/\D/g, "").replace(/^1(?=\d{10})/, "").slice(0, 10);
-  if (d.length === 0) return "";
-  if (d.length <= 3) return `(${d}`;
-  if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
-  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
-}
-export const isPhoneComplete = (v: string) => v.replace(/\D/g, "").length === 10;
 
 type Step = "service" | "rituals" | "when" | "details" | "done";
 
@@ -90,7 +81,7 @@ export default function BookingTakeover() {
     step === "service" ? !!svc
     : step === "rituals" ? true
     : step === "when" ? !!dateKey && !!time
-    : !!name.trim() && isPhoneComplete(phone);
+    : !!name.trim() && isCompletePhone(phone);
 
   const nextOf: Record<Exclude<Step, "done">, Step> = {
     service: "rituals", rituals: "when", when: "details", details: "done",
@@ -160,7 +151,7 @@ export default function BookingTakeover() {
           <div className="hidden lg:block text-[11px] leading-relaxed" style={{ color: "var(--muted-dim)" }}>
             {BIZ.address}, {BIZ.city}
             <br />
-            <a href={`tel:${BIZ.phoneTel}`} style={{ color: "var(--muted)" }}>{BIZ.phoneDisplay}</a>
+            <a href={BIZ.phoneTel} style={{ color: "var(--muted)" }}>{BIZ.phoneDisplay}</a>
           </div>
 
           <button onClick={() => setOpen(false)} aria-label="Close booking"
@@ -304,7 +295,7 @@ export default function BookingTakeover() {
                 </label>
                 <label className="flex flex-col gap-2">
                   <span className="text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--copper)" }}>Phone</span>
-                  <input value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} inputMode="tel" maxLength={14} placeholder="(347) 000-0000"
+                  <input value={phone} onChange={(e) => setPhone(formatAsYouType(e.target.value))} inputMode="tel" maxLength={14} placeholder="(347) 000-0000"
                     className="px-4 py-3.5 text-[15px] bg-transparent"
                     style={{ border: "1px solid var(--line)", color: "var(--bone)" }} />
                 </label>
@@ -339,7 +330,7 @@ export default function BookingTakeover() {
                 )}
                 <p className="mt-7 text-[13px] leading-relaxed" style={{ color: "var(--muted-dim)" }}>
                   We&rsquo;ll text {phone} to confirm with {BIZ.barber}. Questions, call{" "}
-                  <a href={`tel:${BIZ.phoneTel}`} style={{ color: "var(--muted)" }}>{BIZ.phoneDisplay}</a>.
+                  <a href={BIZ.phoneTel} style={{ color: "var(--muted)" }}>{BIZ.phoneDisplay}</a>.
                 </p>
                 <p className="mt-7 inline-block px-3 py-2 text-[11px]" style={{ border: "1px solid var(--line)", color: "var(--muted-dim)" }}>
                   Demo booking — nothing was charged.

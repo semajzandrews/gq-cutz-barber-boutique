@@ -203,6 +203,97 @@ img {
     background: var(--copper-bright);
     transform: translateY(-1px);
   }
+  /* ---------- call or text (phone doctrine) ----------
+     Two entries torn out of the index: numbered, square-edged, copper rule. */
+  .cot { position: relative; display: inline-block; }
+  .cot-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: var(--font-body), sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--bone);
+    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  }
+  .cot-ghost:hover { border-color: var(--copper); color: var(--gold); }
+  .cot-copper { background: var(--copper); color: var(--ink); border-color: var(--copper); }
+  .cot-copper:hover { background: var(--copper-bright); }
+  .cot-glyph { font-size: 15px; line-height: 1; }
+  .cot-label { display: none; }
+  .cot-sheet {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 90;
+    width: max-content;
+    min-width: 268px;
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--copper);
+    border-radius: 2px;
+    padding: 6px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .cot-sheet[data-open="true"] { opacity: 1; transform: none; pointer-events: auto; }
+  .cot-head {
+    padding: 10px 12px 12px;
+    font-family: var(--font-display), serif;
+    font-size: 19px;
+    color: var(--gold);
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 4px;
+  }
+  .cot-sheet a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 11px 12px;
+    color: var(--bone);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .cot-sheet a:hover { background: var(--accent-dim); color: var(--gold); }
+  .cot-idx {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--copper);
+  }
+  .cot-sheet strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .cot-sheet em {
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .cot-pair { display: flex; flex-wrap: wrap; gap: 12px; }
+  @media (min-width: 560px) {
+    .cot-label { display: inline; }
+  }
+  @media (max-width: 559px) {
+    .cot-trigger { padding: 0 12px; }
+  }
   .book-pill {
     display: none;
     position: fixed;
@@ -1020,7 +1111,8 @@ img {
   .book-pill {
     display: flex;
   }
-  .nav-cta {
+  .nav-cta,
+  .cot {
     display: none;
   }
   /* keep last section clear of the fixed pill */

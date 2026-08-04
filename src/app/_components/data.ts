@@ -1,9 +1,25 @@
+import { formatPhone, telHref, smsHref } from "@/lib/phone";
+
+/** The one place the shop's number is written down. Digits only. */
+const PHONE_DIGITS = "3476055614";
+
+/**
+ * The boutique voice: unhurried, a little ceremonial. A client with a picture
+ * on his phone is the most common lead a barbershop gets, so the text branch
+ * invites it outright.
+ */
+export const SMS_BODY =
+  "Hey GQ Cutz, sent a picture of the style I'm after. Can you do it, and what chair times are open this week?";
+
 export const BIZ = {
   name: "GQ Cutz",
   full: "GQ Cutz Barber Boutique",
   tagline: "It is not just a haircut, it is a lifestyle.",
-  phoneDisplay: "(347) 605-5614",
-  phoneTel: "+13476055614",
+  phoneDigits: PHONE_DIGITS,
+  phoneDisplay: formatPhone(PHONE_DIGITS),
+  phoneTel: telHref(PHONE_DIGITS),
+  smsHref: smsHref(PHONE_DIGITS, SMS_BODY),
+  smsBody: SMS_BODY,
   address: "4 Sloan St",
   city: "South Orange",
   state: "NJ",
